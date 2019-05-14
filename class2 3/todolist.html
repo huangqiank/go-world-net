@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script>
+    <title>Title</title>
+    <!--v-for-->
+    <!--v-on:click="btnClick"-->
+    <!--v-model-->
+    <!--input type='text'/-->
+    <!--在页面测试v-model用app.$data.inputvalue-->
+    <!--this.list.push(this.inputvalue)插入新的值-->
+</head>
+<body>
+<!--V层视图层-->
+<div id="myApp">
+    <input type='text' v-model="inputvalue"/>
+    <button v-on:click="btnClick">提交</button>
+    <ul>
+        <li v-for="item in list"> {{item}}</li>
+    </ul>
+</div>
+<!--M层改变数据等-->
+<!--vm:传递数据的改变-->
+<script>
+    var app = new Vue({
+        el: "#myApp",
+        data: {
+            list: ['第一件事', '第二件事'],
+            inputvalue:''
+        },
+        methods: {
+            btnClick: function () {
+                this.list.push(this.inputvalue)
+                this.inputvalue = ''
+            }
+        }
+    })
+</script>
+
+</body>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script>
+    <title>Title</title>
+    <!--v-for-->
+    <!--v-on:click="btnClick"-->
+    <!--v-model传入数据-->
+    <!--v-bind父向子组件之间传值，props接受值-->
+    <!--input type='text'/-->
+    <!--在页面测试v-model用app.$data.inputvalue-->
+    <!--this.list.push(this.inputvalue)插入新的值-->
+
+</head>
+<body>
+<div id="app">
+    <input type="text" v-model="inputfeature"/>
+    <button v-on:click="btnclick">添加</button>
+    <ul>
+        <todo-item1 v-bind:content="item" v-for="item in list"></todo-item1>
+    </ul>
+</div>
+<!--驼峰命名法TodoItem---todo-item-->
+<!--全局组件Vue.component("TodoItem", {})-->
+<!--局部组件var TodoItem1={}, 另外还需要注册  -->
+
+<script>
+    Vue.component("TodoItem", {
+        props: ['content'],
+        template: "<li> {{content}} </li>"
+    })
+    var TodoItem1 = {
+        props: ['content'],
+        template: "<li> {{content}} </li>"
+    }
+    var app = new Vue({
+        el: "#app",
+        components: {TodoItem1: TodoItem1},
+        data: {
+            list: [],
+            inputfeature: ""
+
+        },
+        methods: {
+            btnclick: function () {
+                this.list.push(this.inputfeature)
+                this.inputfeature = ""
+            }
+        }
+    })
+</script>
+
+</body>
