@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://unpkg.com/vue@2.5.17/dist/vue.js"></script>
+    <title>Title</title>
+    <!--v-for-->
+    <!--v-on:click="btnClick"-->
+    <!--v-model传入数据-->
+    <!--v-bind父向子组件之间传值，props接受值-->
+    <!--input type='text'/-->
+    <!--在页面测试v-model用app.$data.inputvalue-->
+    <!--this.list.push(this.inputvalue)插入新的值-->
+
+</head>
+<body>
+<div id="myApp">
+    <input type="text" v-model="input">
+    <button v-on:click="btnclick"> 添加</button>
+    <ul>
+        <todo-item v-bind:content="item"
+                   v-bind:index="index"
+                   v-for="(item,index) in list"
+                   @delete="handleDelete">
+        </todo-item>
+    </ul>
+
+</div>
+<script>
+    var TodoItem = {
+        props: ['content', 'index'],
+        template: "<li v-on:click='handleClick'>{{content}}</li>",
+        methods: {
+            handleClick: function () {
+                this.$emit("delete", this.index);
+            }
+        }
+    }
+    var myApp = new Vue({
+        el: "#myApp",
+        components: {TodoItem: TodoItem},
+        data: {
+            list: ["a", "b"],
+            input: ""
+        },
+        methods: {
+            btnclick: function () {
+                this.list.push(this.input);
+                this.input = "";
+            },
+            handleDelete: function (index) {
+                alert(index);
+                this.list.splice(index, 1)
+            }
+        }
+    })
+
+</script>
+
+</body>
+</html>
